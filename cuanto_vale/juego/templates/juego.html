@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuantoVale</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mx-auto text-center mt-10">
+        <h1 class="text-4xl mb-5">¿Cuál es el valor del jugador de la derecha?</h1>
+        <div class="flex justify-around items-center">
+            <div>
+                <img src="{{ jugador_izquierda.imagen_url }}" alt="{{ jugador_izquierda.nombre }}" class="w-64 h-64">
+                <p class="text-2xl">{{ jugador_izquierda.nombre }}</p>
+                <p class="text-xl">Valor: €{{ jugador_izquierda.valor_mercado }}</p>
+            </div>
+            <div>
+                <p class="text-4xl">VS</p>
+            </div>
+            <div>
+                <img src="{{ jugador_derecha.imagen_url }}" alt="{{ jugador_derecha.nombre }}" class="w-64 h-64">
+                <p class="text-2xl">{{ jugador_derecha.nombre }}</p>
+                <form method="POST" action="{% url 'verificar_respuesta' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="jugador_izquierda_id" value="{{ jugador_izquierda.id }}">
+                    <input type="hidden" name="jugador_derecha_id" value="{{ jugador_derecha.id }}">
+                    <button name="respuesta" value="inferior" class="btn btn-primary">Inferior</button>
+                    <button name="respuesta" value="igual" class="btn btn-primary">Igual</button>
+                    <button name="respuesta" value="superior" class="btn btn-primary">Superior</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
